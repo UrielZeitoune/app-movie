@@ -3,24 +3,21 @@ import 'package:movie/pages/page_home.dart';
 import 'package:movie/pages/page_movie_favorites.dart';
 import 'package:movie/pages/page_movie_search.dart';
 
-// Botton Navigation Bar 
+// Botton Navigation Bar
 
 class BottomNavigationBarHome extends StatefulWidget {
-  const BottomNavigationBarHome
-({Key? key}) : super(key: key);
+  const BottomNavigationBarHome({Key? key}) : super(key: key);
 
   @override
-  State<BottomNavigationBarHome
-> createState() => _Home();
+  State<BottomNavigationBarHome> createState() => _Home();
 }
-
 
 class _Home extends State<BottomNavigationBarHome> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-  PageHome(),
-  PageSearch(),
-  PageFavorites(),
+    PageHome(),
+    PageSearch(),
+    PageFavorites(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,7 +29,6 @@ class _Home extends State<BottomNavigationBarHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -42,19 +38,15 @@ class _Home extends State<BottomNavigationBarHome> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Pagina principal',
-    
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Buscar',
-         
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Favoritos',
-      
           ),
-         
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,

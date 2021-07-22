@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie/pages/page_home.dart';
 import 'package:movie/pages/page_movie_favorites.dart';
 import 'package:movie/pages/page_movie_search.dart';
 import 'package:movie/pages/page_movie_top_rated.dart';
@@ -102,12 +101,6 @@ class PageMoviePopular extends StatelessWidget {
                                   crossAxisCount: 2),
                           itemCount: snapshot.listMoviePopular.length,
                           itemBuilder: (context, index) => MovieWidget(
-                            title: snapshot.listMoviePopular[index].title,
-                            urlImage: snapshot
-                                        .listMoviePopular[index].posterPath !=
-                                    null
-                                ? "https://image.tmdb.org/t/p/w500${snapshot.listMoviePopular[index].posterPath}"
-                                : "https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png",
                             movie: snapshot.listMoviePopular[index],
                           ),
                         ),

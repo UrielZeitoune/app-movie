@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [   ChangeNotifierProvider<MovieProvider>(
+      providers: [
+        ChangeNotifierProvider<MovieProvider>(
             create: (context) => MovieProvider()),
-              ChangeNotifierProvider<GenresProvider>(
+        ChangeNotifierProvider<GenresProvider>(
             create: (context) => GenresProvider()),
-         ChangeNotifierProvider<ListFavorites>(
+        ChangeNotifierProvider<ListFavorites>(
             create: (context) => ListFavorites()),
       ],
       child: MaterialApp(

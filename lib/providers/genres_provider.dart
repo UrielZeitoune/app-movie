@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/class/genres.dart';
+
 // trae los nombres de los generos
 class GenresProvider extends ChangeNotifier {
-  GenresProvider(){
-  obtainMovieGenres();
+  GenresProvider() {
+    obtainMovieGenres();
   }
   List<Genres> _listGenres = [];
 

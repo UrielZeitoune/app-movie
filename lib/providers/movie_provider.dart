@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/class/movie.dart';
+
 // trae las peliculas
 class MovieProvider extends ChangeNotifier {
   List<Movie> _listMoviePopular = [];
@@ -8,7 +9,6 @@ class MovieProvider extends ChangeNotifier {
     obtainMoviePopular();
     obtainMovieTopRated();
     obtainUpcoming();
-
   }
   get listMoviePopular => _listMoviePopular;
 
@@ -73,6 +73,4 @@ class MovieProvider extends ChangeNotifier {
       print(e);
     }
   }
-
-  
 }

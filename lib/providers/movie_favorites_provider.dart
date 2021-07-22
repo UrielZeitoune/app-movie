@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie/class/movie.dart';
+
 // favoritos
 class ListFavorites extends ChangeNotifier {
   List<Movie> _listFavorites = [];

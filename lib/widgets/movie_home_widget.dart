@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movie/class/movie.dart';
 import 'package:movie/pages/page_movie_overview.dart';
+
 // Widget de la pantalla principal
 class MovieWidgetHome extends StatelessWidget {
-  final String title;
-  final String urlImage;
-
   final Movie movie;
-  MovieWidgetHome(
-      { required this.title, required this.urlImage, required this.movie});
+  MovieWidgetHome({required this.movie});
 
   @override
   Widget build(BuildContext context) {
-    return
-    InkWell(
+    return InkWell(
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
@@ -22,25 +18,26 @@ class MovieWidgetHome extends StatelessWidget {
           ),
         ),
       ),
-     child: 
-      Column(
+      child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              urlImage,
+              movie.posterPath != null
+                  ? "https://image.tmdb.org/t/p/w500${movie.posterPath}"
+                  : "https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png",
               width: 125,
             ),
           ),
           Expanded(
             child: Text(
-              title,
+              movie.title!,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 13),
             ),
           ),
         ],
-     ),
+      ),
     );
   }
 }

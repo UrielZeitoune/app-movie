@@ -4,19 +4,13 @@ import 'package:movie/class/movie.dart';
 import 'package:movie/pages/page_movie_overview.dart';
 import 'package:movie/providers/genres_provider.dart';
 import 'package:provider/provider.dart';
+
 // Widget de el buscador y favoritos
 class MovieWidgetSearchFavorite extends StatelessWidget {
-  final String? title;
-  final String? urlImage;
-  final String? dateTime;
-  final String? voteAverage;
   final Movie movie;
-  MovieWidgetSearchFavorite(
-      {required this.title,
-      required this.urlImage,
-      required this.movie,
-      required this.dateTime,
-      required this.voteAverage});
+  MovieWidgetSearchFavorite({
+    required this.movie,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +39,9 @@ class MovieWidgetSearchFavorite extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                urlImage!,
+                movie.posterPath != null
+                    ? "https://image.tmdb.org/t/p/w500${movie.posterPath}"
+                    : "https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png",
                 width: 120,
               ),
             ),
@@ -61,7 +57,7 @@ class MovieWidgetSearchFavorite extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(),
                           child: Text(
-                            title!,
+                            movie.title!,
                             maxLines: 3,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -72,7 +68,10 @@ class MovieWidgetSearchFavorite extends StatelessWidget {
                         Row(
                           children: [
                             Chip(
-                              label: Text(dateTime!),
+                              label: Text(
+                                  movie.releaseDate!.year.toString() == null
+                                      ? ''
+                                      : movie.releaseDate!.year.toString()),
                               backgroundColor: Colors.grey[800],
                             ),
                             SizedBox(
@@ -86,7 +85,7 @@ class MovieWidgetSearchFavorite extends StatelessWidget {
                                     Icons.star,
                                     color: Colors.yellow,
                                   ),
-                                  Text(voteAverage!),
+                                  Text(movie.voteAverage.toString()),
                                 ],
                               ),
                             ),
