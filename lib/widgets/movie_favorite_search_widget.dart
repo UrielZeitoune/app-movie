@@ -68,10 +68,7 @@ class MovieWidgetSearchFavorite extends StatelessWidget {
                         Row(
                           children: [
                             Chip(
-                              label: Text(
-                                  movie.releaseDate!.year.toString() == null
-                                      ? ''
-                                      : movie.releaseDate!.year.toString()),
+                              label: Text(movie.releaseDate!.year.toString()),
                               backgroundColor: Colors.grey[800],
                             ),
                             SizedBox(

@@ -4,9 +4,10 @@ import 'package:movie/widgets/movie_favorite_search_widget.dart';
 import 'package:provider/provider.dart';
 
 // buscador
+// ignore: must_be_immutable
 class PageSearch extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
-
+  List<String> history = [];
   @override
   Widget build(BuildContext context) => Consumer<MovieProvider>(
         builder: (context, snapshot, child) => Scaffold(
@@ -53,7 +54,65 @@ class PageSearch extends StatelessWidget {
                       onSubmitted: (text) {
                         Provider.of<MovieProvider>(context, listen: false)
                             .obtainMovieSearch(this._controller.text);
+                        history.add(this._controller.text);
                       }),
+                ),
+                Column(
+                  children: [
+                    ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: 40),
+                        child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              ),
+                              for (var item in history.reversed)
+                                GestureDetector(
+                                  onTap: () {
+                                    this._controller.text = item;
+                                    history.add(item);
+                                    Provider.of<MovieProvider>(context,
+                                            listen: false)
+                                        .obtainMovieSearch(item);
+                                    Expanded(
+                                      child: ListView.builder(
+                                          itemCount:
+                                              snapshot.listaMovieSearch.length,
+                                          itemBuilder: (context, index) =>
+                                              MovieWidgetSearchFavorite(
+                                                movie: snapshot
+                                                    .listaMovieSearch[index],
+                                              )),
+                                    );
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('$item  '),
+                                        Icon(Icons.history),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        VerticalDivider(
+                                          color: Colors.grey,
+                                          thickness: 2,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                            ])),
+                    SizedBox(
+                      height: 7,
+                    )
+                  ],
                 ),
                 Provider.of<MovieProvider>(context, listen: true)
                             .listaMovieSearch !=
