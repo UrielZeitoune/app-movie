@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:movie/class/movie.dart';
 import 'package:movie/pages/page_movie_favorites.dart';
 import 'package:movie/pages/page_movie_search.dart';
 import 'package:movie/pages/page_movie_top_rated.dart';
@@ -12,46 +14,55 @@ import 'package:provider/provider.dart';
 class PageMoviePopular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    List<Movie> popular =
+        Provider.of<MovieProvider>(context, listen: false).listMoviePopular;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Image.asset('assets/images/logo.jpg', height: 80),
-        backgroundColor: Colors.black,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PageSearch()));
-              },
-              icon: Icon(Icons.search)),
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PageFavorites()));
-              },
-              icon: Icon(Icons.favorite)),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return BottomNavigationBarHome();
-                  },
-                ), (Route<dynamic> route) => false);
-              },
-              icon: Icon(Icons.home)),
-        ],
-      ),
-      body: Container(
-        decoration: BoxDecoration(color: Colors.black),
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Row(
-              children: [
-                Text(
-                  '   Mas populares ',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 17),
+      backgroundColor: Colors.black,
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+          snap: true,
+          floating: true,
+          centerTitle: true,
+          title: Image.asset(
+            'assets/images/logo.jpg',
+          ),
+          backgroundColor: Colors.black,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PageSearch()));
+                },
+                icon: Icon(Icons.search)),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PageFavorites()));
+                },
+                icon: Icon(Icons.favorite)),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return BottomNavigationBarHome();
+                    },
+                  ), (Route<dynamic> route) => false);
+                },
+                icon: Icon(Icons.home)),
+          ],
+        ),
+        SliverList(
+            delegate: SliverChildListDelegate(<Widget>[
+          ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 60),
+              child: ListView(scrollDirection: Axis.horizontal, children: [
+                Chip(
+                  backgroundColor: Colors.grey[900],
+                  label: Text(
+                    'Mas populares',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 17),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {
@@ -60,9 +71,14 @@ class PageMoviePopular extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => PageMovieTopRated()));
                   },
-                  child: Text(
-                    'Mas valoradas',
-                    style: TextStyle(fontSize: 17, color: Colors.grey[600]),
+                  child: Chip(
+                    backgroundColor: Colors.grey[700],
+                    label: Text(
+                      'Mas valoradas',
+                      style: TextStyle(
+                        fontSize: 17,
+                      ),
+                    ),
                   ),
                 ),
                 TextButton(
@@ -72,42 +88,28 @@ class PageMoviePopular extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => PageMovieUpcoming()));
                   },
-                  child: Text(
-                    'Proximamente',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.grey[600],
+                  child: Chip(
+                    backgroundColor: Colors.grey[700],
+                    label: Text(
+                      'Proximamente',
+                      style: TextStyle(
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Consumer<MovieProvider>(
-              builder: (context, snapshot, child) =>
-                  snapshot.listMoviePopular == []
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.red,
-                          ),
-                        )
-                      : GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          itemCount: snapshot.listMoviePopular.length,
-                          itemBuilder: (context, index) => MovieWidget(
-                            movie: snapshot.listMoviePopular[index],
-                          ),
-                        ),
-            ),
-          ],
-        ),
-      ),
+                SizedBox(
+                  height: 5,
+                ),
+              ]))
+        ])),
+        SliverGrid.count(crossAxisCount: 2, children: [
+          for (var movie in popular)
+            MovieWidget(
+              movie: movie,
+            )
+        ])
+      ]),
     );
   }
 }

@@ -38,12 +38,15 @@ class MovieWidgetSearchFavorite extends StatelessWidget {
           child: Row(children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                movie.posterPath != null
-                    ? "https://image.tmdb.org/t/p/w500${movie.posterPath}"
-                    : "https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png",
-                width: 120,
-              ),
+              child: movie.posterPath == null
+                  ? Image.asset(
+                      'assets/images/icono.jpg',
+                      width: 120,
+                    )
+                  : Image.network(
+                      "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                      width: 120,
+                    ),
             ),
             SizedBox(
               width: 10,

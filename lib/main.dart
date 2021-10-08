@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Movie',
-        
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         home: BottomNavigationBarHome(),

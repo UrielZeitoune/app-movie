@@ -97,12 +97,17 @@ class _PageOverviewState extends State<PageOverview> {
                     SizedBox(
                       width: 15,
                     ),
-                    Image.network(
-                      widget.movie.posterPath != null
-                          ? "https://image.tmdb.org/t/p/w500${widget.movie.posterPath}"
-                          : "https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png",
-                      height: 180,
-                    ),
+                   
+        widget.movie.posterPath == null
+                ? Image.asset(
+                    'assets/images/icono.jpg',
+                    width: 180,
+                  )
+                : Image.network(
+                    "https://image.tmdb.org/t/p/w500${widget.movie.posterPath}",
+                    height: 180,
+                  ),
+                    
                     SizedBox(
                       width: 8,
                     ),

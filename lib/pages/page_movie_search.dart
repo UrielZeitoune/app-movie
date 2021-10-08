@@ -78,11 +78,11 @@ class PageSearch extends StatelessWidget {
                                     Expanded(
                                       child: ListView.builder(
                                           itemCount:
-                                              snapshot.listaMovieSearch.length,
+                                              snapshot.listMovieSearch.length,
                                           itemBuilder: (context, index) =>
                                               MovieWidgetSearchFavorite(
                                                 movie: snapshot
-                                                    .listaMovieSearch[index],
+                                                    .listMovieSearch[index],
                                               )),
                                     );
                                   },
@@ -115,14 +115,14 @@ class PageSearch extends StatelessWidget {
                   ],
                 ),
                 Provider.of<MovieProvider>(context, listen: true)
-                            .listaMovieSearch !=
+                            .listMovieSearch !=
                         []
                     ? Expanded(
                         child: ListView.builder(
-                            itemCount: snapshot.listaMovieSearch.length,
+                            itemCount: snapshot.listMovieSearch.length,
                             itemBuilder: (context, index) =>
                                 MovieWidgetSearchFavorite(
-                                  movie: snapshot.listaMovieSearch[index],
+                                  movie: snapshot.listMovieSearch[index],
                                 )),
                       )
                     : Center(

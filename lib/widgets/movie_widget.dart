@@ -22,14 +22,15 @@ class MovieWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              movie.posterPath != null
-                  ? "https://image.tmdb.org/t/p/w500${movie.posterPath}"
-                  : "https://www.themoviedb.org/assets/2/apple-touch-icon-cfba7699efe7a742de25c28e08c38525f19381d31087c69e89d6bcb8e3c0ddfa.png",
-              width: 110,
-            ),
-          ),
-          Text(
+            child:  movie.posterPath == null
+                ? Image.asset(
+                    'assets/images/icono.jpg',
+                    width: 110,
+                  )
+                : Image.network(
+                    "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                    width: 110)
+                    ),       Text(
             movie.title!,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13),

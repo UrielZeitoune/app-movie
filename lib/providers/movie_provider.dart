@@ -59,7 +59,7 @@ class MovieProvider extends ChangeNotifier {
 
   List<Movie> _listMovieSearch = [];
 
-  get listaMovieSearch => _listMovieSearch;
+  get listMovieSearch => _listMovieSearch;
 
   void obtainMovieSearch(String search) async {
     try {
